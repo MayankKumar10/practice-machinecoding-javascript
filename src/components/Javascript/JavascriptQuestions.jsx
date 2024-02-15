@@ -5,25 +5,25 @@ export const JavascriptQuestions = () => {
   //
   // javascrpit questions
 
-  // let consicutiveNonRepeatingChar = (str) => {
-  //   let strArr = str.split("");
-  //   let arr = [];
-  //   for (let i = 0; i < strArr.length; i++) {
-  //     let char = str[i];
-  //     if (
-  //       (i === 0 || char !== strArr[i - 1]) &&
-  //       (i === strArr.length - 1 || char !== strArr[i + 1])
-  //     ) {
-  //       arr.push(char);
-  //     }
-  //   }
-  //   return arr;
-  // };
+  let consicutiveNonRepeatingChar = (str) => {
+    // let strArr = str.split("");
+    let arr = [];
+    for (let i = 0; i < str.length; i++) {
+      let char = str[i];
+      if (
+        (i === 0 || char !== str[i - 1]) &&
+        (i === str.length - 1 || char !== str[i + 1])
+      ) {
+        arr.push(char);
+      }
+    }
+    return arr.join("");
+  };
 
-  // console.log(
-  //   "consicutiveNonRepeatingChar",
-  //   consicutiveNonRepeatingChar("ADDIITYAD")
-  // );
+  console.log(
+    "consicutiveNonRepeatingChar",
+    consicutiveNonRepeatingChar("ADDIITYAD")
+  );
 
   // let findKElement = (arr, k) => {
   //   let count = 0;
@@ -237,7 +237,8 @@ export const JavascriptQuestions = () => {
     this.func1 = function () {
       //undefined
       function main() {
-        console.log("main 1", this.value); //undefined
+        // console.log("main 1", this.value); //undefined
+        console.log("main 1", this); //undefined
       }
       main();
     };
@@ -258,7 +259,8 @@ export const JavascriptQuestions = () => {
     this.func4 = () => {
       //undefined
       function main() {
-        console.log("main 4", this.value); //undefined
+        // console.log("main 4", this.value); //undefined
+        console.log("main 4", this); //undefined
       }
       main();
     };
@@ -329,6 +331,84 @@ export const JavascriptQuestions = () => {
   console.log(`Number of ways to climb ${steps} steps: ${result}`);
 */
 
+
+
+  /*-----Fetching comments-----*/
+
+  let data = null
+
+  let fetchData = async() =>{
+    let res = await fetch("https://jsonplaceholder.typicode.com/comments");
+    let result = await res.json();
+      data = result
+    return data
+  }
+
+async function fetchComments(){
+ await fetchData();
+
+  let obj = {}
+
+  data.forEach(({postId, ...rest})=>{
+
+    if(!obj[postId]){
+      obj[postId] = {postId, comments:[rest]}
+    } else {
+      obj[postId].comments.push(rest)
+    }
+  })
+  return obj
+}
+
+fetchComments()
+.then((res)=>console.log("comments", res))
+.catch((err)=>console.log("error", err))
+
+let reverseInPlace = (str) => str.split(" ").reverse().join(" ").split("").reverse().join("")
+
+reverseInPlace("Hi I am here")
+
+let subStringOfString = (str) =>{
+  let currentLength = 0;
+  let maxLength = 0;
+  let start = 0;
+  let maxStart = 0;
+  let visited = {}
+
+
+  for(let i=0;i<str.length; i++){
+    let char = str[i]
+
+    if(visited[char] == null || visited[char] < start ){
+      visited[char] = i
+      currentLength++
+    } else {
+
+      if(currentLength > maxLength){
+        maxLength  = currentLength
+        maxStart = start
+      }
+
+      currentLength = i - visited[char]
+      start  = visited[char] + i
+      visited[char] = i
+    }
+  }
+
+  if(currentLength > maxLength){
+    maxLength = currentLength
+    maxStart = start
+  }
+
+  return str.substr(maxStart, maxLength)
+}
+
+
+  console.log("Max Sub String", subStringOfString("abcabcds"))
+
+  let flattenDepth = (arr, depth) => arr.reduce((acc, val)=> acc.concat(Array.isArray(val) && depth>0? flattenDepth(val, depth-1) : val), [])
+
+  console.log("Flattening", flattenDepth([1,2,[3,4,[5,6, [7,8, [9, 10]]],11, 12], 13, 14], 2))
 
   return (
     <div>JavascriptQuestions</div>
