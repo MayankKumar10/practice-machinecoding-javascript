@@ -81,6 +81,62 @@ new Promise((res) => {
 console.log(5);
 //2,3,promise check, 5, 4, 6, 7, abc, 1
 
+setTimeout(() => console.log("1"));
+Promise.resolve("hi").then((res) => console.log(res));
+Promise.resolve().then(() => console.log("res1"));
+Promise.resolve(console.log("8"))
+Promise.resolve().then(() => console.log("4"));
+setTimeout(() => console.log("2"));
+new Promise((res, rej) => {
+    console.log("5");
+    res("res new");
+}).then((res) => console.log("res2", res));
+console.log("6");
+let promise = Promise.resolve();
+setTimeout(() => console.log("3"));
+setTimeout(() => promise.then(() => console.log("res2")));
+//5, 6, hi, res1, 4, res2 res new, 1, 2, 3, res2
+
+//5, 6 
+//st 1 2 3 (res2 res hi)
+// hi res1 4
+
+//5,6 , hi, res1, 4, 1, 2, 3, res2 res hi
+
+  /*----- Promises Polyfill -----*/
+  
+  /*----- Promises.all Polyfill  -----*/
+
+  let promiseAll = (promises) => new Promise((resolve, reject)=>{
+    let results = []
+
+    let len = promises.length
+
+    if(len === 0) return results
+
+    promises.forEach((val, ind)=>{
+      Promise.resolve(val).then((res)=>{
+       
+        results[ind] = res
+
+        len --
+
+        if(len === 0){
+          resolve(results)
+        } else {
+          reject(results)
+        }
+      })
+    })
+
+  })
+
+
+  /*----- Promises.allSeteled Polyfill -----*/
+  /*----- Promises.race Polyfill -----*/
+  /*----- Promises.any Polyfill -----*/
+
+
   return (
     <div>
       <h4>PromisesAndAsync</h4>

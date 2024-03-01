@@ -3,7 +3,7 @@ import React from 'react'
 export const JavascriptQuestions = () => {
 
   //
-  // javascrpit questions
+  // javascript questions
 
   let consicutiveNonRepeatingChar = (str) => {
     // let strArr = str.split("");
@@ -24,6 +24,8 @@ export const JavascriptQuestions = () => {
     "consicutiveNonRepeatingChar",
     consicutiveNonRepeatingChar("ADDIITYAD")
   );
+
+
 
   // let findKElement = (arr, k) => {
   //   let count = 0;
@@ -184,7 +186,7 @@ export const JavascriptQuestions = () => {
   // create folder structure
   //https://www.youtube.com/watch?v=vxggZffOqek
 
-  // null == undefined; // ture null type is object
+  // null == undefined; // true null type is object
   // null === undefined; // false undefined type is undefined
 
   //https://www.youtube.com/watch?v=abbdJ4Yfm54
@@ -406,9 +408,193 @@ let subStringOfString = (str) =>{
 
   console.log("Max Sub String", subStringOfString("abcabcds"))
 
-  let flattenDepth = (arr, depth) => arr.reduce((acc, val)=> acc.concat(Array.isArray(val) && depth>0? flattenDepth(val, depth-1) : val), [])
+  let flattenDepthWithReduce = (arr, depth) => arr.reduce((acc, val)=> acc.concat(Array.isArray(val) && depth>1? flattenDepthWithReduce(val, depth-1) : val), [])
 
-  console.log("Flattening", flattenDepth([1,2,[3,4,[5,6, [7,8, [9, 10]]],11, 12], 13, 14], 2))
+  let customFlatWithForEach = (arr, depth=1) =>{
+    let result = []
+
+    arr.forEach((ar)=>{
+      Array.isArray(ar) && depth > 0 ? result.push(...customFlatWithForEach(ar, depth - 1)) : result.push(ar)
+    })
+
+    return result
+  }
+
+  console.log("Custom Flat", customFlatWithForEach([1,2,[3,4,[5,6, [7,8, [9, 10]]],11, 12], 13, 14], 2))
+
+
+  console.log("Flattening", flattenDepthWithReduce([1,2,[3,4,[5,6, [7,8, [9, 10]]],11, 12], 13, 14], 2))
+
+  let objCloneCheck = {
+    name: "abc",
+    value: 12,
+    friend:['ab', "bc", "ca", "da"],
+    call:()=>{
+      console.log("call this function")
+    },
+    obj2:{
+      name: "abc",
+      value: 12,
+      friend:['ab', "bc", "ca", "da"],
+      call:()=>{
+        console.log("call this function")
+      },
+      obj3:{
+        name: "abc",
+        value: 12,
+        friend:['ab', "bc", "ca", "da"],
+        call:()=>{
+          console.log("call this function")
+        }
+      }
+    }
+  }
+
+  let cloneObj = structuredClone(objCloneCheck);
+  let cloneObj1 = JSON.parse(JSON.stringify(objCloneCheck));
+
+
+  console.log("object clone", cloneObj)
+  
+  // compose and pipe
+  //polyfill of compose
+
+  let add = (a) => a + 2
+  let multi = (a) => a * 5
+  let sub = (a) => a - 2
+
+
+  let compose = (...funcs) => (args) => funcs.reduceRight((acc, fun)=>fun(acc), args)
+
+  let composeCall = compose(add, multi, sub)
+
+  console.log("object compose", composeCall(2))
+
+
+  let panagram = (str) =>{
+    
+    let arr = new Array(26).fill(false)
+
+    let index;
+
+    for(let i=0; i < str.length; i++){
+      if(str[i] >= "A" && str[i] <= "Z" )
+      index = str.charCodeAt(i) - "A".charCodeAt(0)
+      
+      else if(str[i]>="a" && str[i]<= "z")
+      index = str.charCodeAt(i) - "a".charCodeAt(0)
+      else continue
+
+      arr[index] = true
+    }
+
+    for(let i=0; i<arr.length-1; i++){
+      if(arr[i]===false)return false
+    }
+
+    return true
+  }
+
+
+  console.log("panaram", panagram("The quick brown fox jumps over the lazy dog"))
+
+  let timeFormat = (strTime) =>{
+    let [time, format] = strTime.split(" ")
+    let [hours, minutes] = time.split(":")
+
+    if(hours==="12") hours="00"
+
+    if(format === "PM") hours = parseInt(hours) + 12;
+
+    return `${hours}:${minutes}`
+  }
+
+  console.log("timeFormat", timeFormat("12:00 PM"))
+  console.log("timeFormat", timeFormat("1:00 pm"))
+  console.log("timeFormat", timeFormat("12:00 AM"))
+  console.log("timeFormat", timeFormat("2:00 PM"))
+
+
+  /*
+  Cache system which take key and value and delete the least item 
+
+  name : Mayank  
+  age : 30 
+  add: gurgaon
+  profession: SDE
+
+  if we add hobbie
+
+  then Name is deleted 
+  and we access add before adding something 
+  then that again added to cache in top 
+
+  */
+
+
+  class LRU{
+    constructor(max=5){
+      this.max = max
+      this.cache = new Map()
+    }
+
+    get(key){
+      let item = this.cache.get(key)
+      if(item){
+        this.cache.delete(key)
+        this.cache.set(key, item)
+      }
+    }
+
+    set(key, value){
+      let {cache, max} = this
+      if(cache.has(key)){
+        cache.delete(key)
+      }
+      else if(cache.size === max){
+        cache.delete(this.first())
+      }
+
+      cache.set(key, value)
+    }
+
+    first(){
+      return this.cache.keys().next().value;
+    }
+
+  }
+
+  let checkCache = new LRU(3);
+
+  checkCache.set("name", "Mayank")
+  checkCache.set("age", "30")
+  checkCache.set("profession", "SDE")
+  console.log("checkCache", checkCache.cache)
+  checkCache.get("name")
+  console.log("checkCache", checkCache.cache)
+  checkCache.set('location', "Gurgaon")
+  console.log("checkCache", checkCache.cache)
+
+
+  //Javascript Objects
+
+  let objname = [{name: "somthing1"}, {name: "somthing2"},]
+
+
+  let objChange = (arr) => arr.map(({name})=>({name: name}))
+ 
+ 
+  let objChange1 = (obj) => obj.reduce((acc, {name})=> acc.concat({name: name}) , [])
+ 
+ 
+ console.log("objChange", objChange(objname))
+ console.log("objChange1", objChange1(objname))
+ 
+ var str = "abc"
+ str[0] = "x"
+ console.log(str)
+ 
+
 
   return (
     <div>JavascriptQuestions</div>

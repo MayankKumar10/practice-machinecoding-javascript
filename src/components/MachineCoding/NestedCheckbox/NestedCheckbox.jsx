@@ -86,7 +86,8 @@ const selectAllCars = (brand) =>{
           type="checkbox"  
           checked={selectedCarsMap[data.brand]?.includes(car)}
           onChange={()=>carsHandler(data.brand)}  
-          /> {car}
+          /> 
+          {car}
           </div>
       ))}
           </div>

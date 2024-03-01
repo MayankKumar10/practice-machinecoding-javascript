@@ -305,6 +305,28 @@ addsix(21);
 // func();
 
 
+function Stack() {
+  const items = [];
+
+  return {
+    push(item) {
+      items.push(item);
+    },
+    pop() {
+      return items.pop();
+    }
+  }
+}
+
+const stackNew = Stack();
+stackNew.push(3)
+stackNew.push(2)
+stackNew.push(1)
+console.log(stackNew.pop()); // logs 1
+
+stackNew.length = 0; // Does nothing!
+console.log(stackNew.pop());
+
   return (
     <div>Closures</div>
   )

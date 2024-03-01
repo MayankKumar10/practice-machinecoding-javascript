@@ -53,6 +53,16 @@ export const LetVarAndConst = () => {
     //function scope so every time i belongs to another value
   } //it will print 1 to 5  after 1 sec delay
 
+  let index
+  for(var i=0;i<5; i++){
+      index = i
+      setTimeout(()=>{
+          console.log(index)
+      }
+      ,1000)
+  }
+  //4 5 times
+
 
   // ""==false (true)
   // false == [[[""]]] (true)
@@ -64,7 +74,8 @@ export const LetVarAndConst = () => {
   // 0 == [[[]]](true)
   // -0 == [[[]]](true)
   // null == undefined (true)
-
+  //"abc" > "ab" (true)
+  //"111" > "110" (true)
   
 
 

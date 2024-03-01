@@ -49,3 +49,10 @@
   border-radius: 2px;
   background-color: #61dafb;
 }
+
+.brand_div{
+  display: flex;
+}
+.checkbox_container{
+  display: flex;
+}
