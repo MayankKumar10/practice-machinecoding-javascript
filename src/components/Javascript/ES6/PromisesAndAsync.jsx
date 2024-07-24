@@ -95,11 +95,46 @@ console.log("6");
 let promise = Promise.resolve();
 setTimeout(() => console.log("3"));
 setTimeout(() => promise.then(() => console.log("res2")));
-//5, 6, hi, res1, 4, res2 res new, 1, 2, 3, res2
+//8, 5, 6, hi, res1, 4, res2 res new, 1, 2, 3, res2
 
 //5, 6 
 //st 1 2 3 (res2 res hi)
 // hi res1 4
+
+for (var i = 0; i < 5; i++); {
+  setTimeout(function () {
+    console.log(i);
+  }, i * 1000);
+}
+
+// 5 1 time because there is an error in code ; after loop 
+
+setTimeout(() => {
+  console.log("A");
+}, 1000);
+setTimeout(() => {
+  console.log("B");
+}, 0);
+Promise.resolve().then(console.log("C"));
+Promise.resolve().then(
+  setTimeout(() => {
+    console.log("D");
+  }, 0)
+);
+console.log("E");
+setTimeout(() => {
+  console.log("F");
+}, 1000);
+
+// C E B D A F
+
+
+setTimeout(()=> console.log(1),1000)
+setTimeout(()=> console.log(2),10)
+setTimeout(()=> console.log(3),10)
+setTimeout(()=> console.log(4),100)
+setTimeout(()=> console.log(5),0)
+// 5 2 3 4 1
 
 //5,6 , hi, res1, 4, 1, 2, 3, res2 res hi
 

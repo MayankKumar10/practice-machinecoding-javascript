@@ -21,6 +21,8 @@ import { DisplayNestedComments } from './components/MachineCoding/Nested Comment
 import { NestedCheckbox3 } from './components/MachineCoding/NestedCheckbox/NestedCheckbox3';
 import { AddingFilesAsInput } from './components/MachineCoding/AddingFilesAsInput';
 import { FetchingData } from './components/Javascript/Fetching/FetchingData';
+import { ProductsLikeDislike } from './components/MachineCoding/Practice Machine Coding/ProductsLikeDislike';
+import { DynamicForm } from './components/MachineCoding/DynamicForm';
 
 function App() {
 
@@ -48,8 +50,8 @@ function App() {
     {/* <Todos /> */}
     {/* <StarRating /> */}
     {/* <ReduxCounter /> */}
-    {/* <JavascriptQuestions />
-     */}
+    <JavascriptQuestions />
+    
     {/* <Nestedfolders1 explorer={explorer} /> */}
     {/* <NestedFolders explorer={explorer} />
     <LetVarAndConst /> */}
@@ -62,7 +64,12 @@ function App() {
 
     {/* <NestedCheckbox3 /> */}
     {/* <AddingFilesAsInput /> */}
-    <FetchingData />
+    {/* <FetchingData /> */}
+    {/* <ReduxCounter /> */}
+
+    {/* <ProductsLikeDislike /> */}
+    
+    <DynamicForm />
     </div>
   );
 }

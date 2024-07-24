@@ -89,7 +89,7 @@ const selectAllCars = (brand) =>{
           /> 
           {car}
           </div>
-      ))}
+          ))}
           </div>
                     
           )}

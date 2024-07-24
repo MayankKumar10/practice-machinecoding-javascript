@@ -5,7 +5,7 @@ export const JavascriptQuestions = () => {
   //
   // javascript questions
 
-  let consicutiveNonRepeatingChar = (str) => {
+  let consecutiveNonRepeatingChar = (str) => {
     // let strArr = str.split("");
     let arr = [];
     for (let i = 0; i < str.length; i++) {
@@ -21,10 +21,9 @@ export const JavascriptQuestions = () => {
   };
 
   console.log(
-    "consicutiveNonRepeatingChar",
-    consicutiveNonRepeatingChar("ADDIITYAD")
+    "consecutiveNonRepeatingChar",
+    consecutiveNonRepeatingChar("AnshuMayank")
   );
-
 
 
   // let findKElement = (arr, k) => {
@@ -45,6 +44,7 @@ export const JavascriptQuestions = () => {
   // let sumOfAllNaturalNumers = (num) => (num * (num + 1)) / 2;
 
   // console.log("sumOfAllNaturalNumers", sumOfAllNaturalNumers(5));
+
 
   // let primeArr = (num, arr) => {
   //   let isPrime = true;
@@ -425,6 +425,20 @@ let subStringOfString = (str) =>{
 
   console.log("Flattening", flattenDepthWithReduce([1,2,[3,4,[5,6, [7,8, [9, 10]]],11, 12], 13, 14], 2))
 
+  let customArrFlatten = (arr) =>{
+    let arrNew = []
+    for(let i=0; i < arr.length; i++){
+      if(Array.isArray(arr[i])){
+       arrNew = arrNew.concat(customArrFlatten(arr[i]))
+      } else {
+        arrNew.push(arr[i])        
+      }
+    }
+    return arrNew
+  }
+
+  console.log("customArrFlatten", customArrFlatten([1,2,[3,4,[5,6, [7,8, [9, 10]]],11, 12], 13, 14]))
+
   let objCloneCheck = {
     name: "abc",
     value: 12,
@@ -450,11 +464,11 @@ let subStringOfString = (str) =>{
     }
   }
 
-  let cloneObj = structuredClone(objCloneCheck);
-  let cloneObj1 = JSON.parse(JSON.stringify(objCloneCheck));
+  // let cloneObj = structuredClone(objCloneCheck);
+  // let cloneObj1 = JSON.parse(JSON.stringify(objCloneCheck));
 
 
-  console.log("object clone", cloneObj)
+  // console.log("object clone", cloneObj)
   
   // compose and pipe
   //polyfill of compose
@@ -515,6 +529,9 @@ let subStringOfString = (str) =>{
   console.log("timeFormat", timeFormat("2:00 PM"))
 
 
+
+
+
   /*
   Cache system which take key and value and delete the least item 
 
@@ -523,7 +540,7 @@ let subStringOfString = (str) =>{
   add: gurgaon
   profession: SDE
 
-  if we add hobbie
+  if we add office Address
 
   then Name is deleted 
   and we access add before adding something 
@@ -578,7 +595,7 @@ let subStringOfString = (str) =>{
 
   //Javascript Objects
 
-  let objname = [{name: "somthing1"}, {name: "somthing2"},]
+  let objname = [{name: "something1"}, {name: "something2"},]
 
 
   let objChange = (arr) => arr.map(({name})=>({name: name}))
@@ -590,10 +607,125 @@ let subStringOfString = (str) =>{
  console.log("objChange", objChange(objname))
  console.log("objChange1", objChange1(objname))
  
- var str = "abc"
- str[0] = "x"
- console.log(str)
- 
+//  var str = "abc"
+//  str[0] = "x"
+//  console.log(str)
+
+ //sliding window problem
+
+//Output: 3 3 4 5 5 5 6
+// Explanation: Maximum of 1, 2, 3 is 3
+//                        Maximum of 2, 3, 1 is 3
+//                        Maximum of 3, 1, 4 is 4
+//                        Maximum of 1, 4, 5 is 5
+//                        Maximum of 4, 5, 2 is 5 
+//                        Maximum of 5, 2, 3 is 5
+//                        Maximum of 2, 3, 6 is 6
+
+let slideArr = [1, 2, 3, 1, 4, 5, 2, 3, 6] 
+let slidingWindow = (arr, k)=>{
+  let arrNew=[]
+  for(let i=0; i<arr.length; i++){
+    arr.slice(i, i+k).length===k && arrNew.push(arr.slice(i, i+k))
+  }
+  let arrMax = arrNew.map((item)=> Math.max(...item))
+  return arrMax
+}
+
+console.log("sliding window", slidingWindow(slideArr, 3))
+
+
+//sort an array according to order defined by another array
+let orderArr1 =[2, 1, 2, 5, 7, 1, 9, 3, 6, 8, 8]
+let orderArr2  = [2, 1, 8, 3]
+
+let sortArrByAnotherArr = (arr1, arr2) =>{
+  let arrNew = new Map()
+
+  arr2.forEach((item,i)=>{
+    arrNew.set(item, i)
+  })
+
+  arr1.sort((a,b)=>{
+    let indexA = arrNew.has(a) ? arrNew.get(a) : Infinity
+    let indexB = arrNew.has(b) ? arrNew.get(b) : Infinity
+
+    return indexA - indexB
+  })
+
+    return arr1  
+}
+
+console.log("sortArr", sortArrByAnotherArr(orderArr1, orderArr2))
+
+
+let strChange = "E3:D0:I4:E0:P4"
+
+let changeObj = {
+  P: 0,
+  E: 0,
+}
+
+let changeStr = (str) =>{
+  let strArr = str.split("");
+
+  for(let i=0; i< strArr.length; i++){
+    let char = strArr[i]
+    if(char in changeObj){
+      strArr[i] = changeObj[char]
+    }
+  }
+  return strArr.join("")
+}
+
+console.log("changeStr", changeStr(strChange))
+
+let newData = [
+  {
+    key: "Sample 1",
+    data: "Data 1"
+  },
+  {
+    key: "Sample 1",
+    data: "Data 2"
+  },
+  {
+    key: "Sample 1",
+    data: "Data 2"
+  },
+  {
+    key: "Sample 1",
+    data: "Data 3"
+  },
+  {
+    key: "Sample 1",
+    data: "Data 4"
+  },
+  {
+    key: "Sample 2",
+    data: "Data 1"
+  },
+  {
+    key: "Sample 3",
+    data: "Data 1"
+  },
+  {
+    key: "Sample 4",
+    data: "Data 1"
+  },
+]
+
+let converData = (arr) => arr.reduce((acc, val)=> {
+  const {key} = val
+  if(!acc[key]){
+    acc[key] = [val]
+  } else {
+    acc[key].push(val)
+  }
+  return acc
+},{})
+
+console.log("convertData", converData(newData));
 
 
   return (

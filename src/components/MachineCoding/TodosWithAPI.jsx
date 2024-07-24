@@ -9,7 +9,7 @@ export const TodosWithAPI = () => {
   let fetchCall = async() => {
 		let res = await fetch(URL)
     let result = await res.json()
-      setDatas(result)
+      setDatas(result.data)
     console.log("result", result)
   } 
 

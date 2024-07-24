@@ -16,7 +16,6 @@ export const AddingFilesAsInput = () => {
           <img src={URL.createObjectURL(image)} alt="" width="200" height='200' />
         </div>}
 
-
       </div>
     </div>
   )
