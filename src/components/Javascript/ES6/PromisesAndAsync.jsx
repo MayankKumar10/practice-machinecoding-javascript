@@ -7,7 +7,7 @@ export const PromisesAndAsync = () => {
     let promise1Ex2 = new Promise((res, rej)=> console.log("promise 2"));
   console.log("end")
 
-  // start , promise2, end, resolve
+  // start , promise2, end, resolve 
 
 
   console.log('start');

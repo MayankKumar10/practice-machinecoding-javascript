@@ -31,6 +31,7 @@ export const JavascriptQuestions = () => {
   //   let i = 0;
 
   //   while (count < k) {
+  
   //     if (arr.indexOf(i) == -1) {
   //       count++;
   //     }
@@ -47,6 +48,7 @@ export const JavascriptQuestions = () => {
 
 
   // let primeArr = (num, arr) => {
+    
   //   let isPrime = true;
   //   if (num < 1) return arr;
   //   if (num === 1) {

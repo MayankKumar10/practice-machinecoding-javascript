@@ -8,8 +8,8 @@ const NestedFolders = ({explorer}) => {
     return (
       <>
       <span onClick={()=>setIsClicked(!isClicked)} style={{cursor: 'pointer'}}>{explorer.name}
-        <br/>
       </span>
+      <br/>
       <div style={{display: isClicked ? "block" : "none", paddingLeft: "80px"}}> 
       {explorer.items.map((item)=> (
         <NestedFolders key={item.name} explorer={item} />
